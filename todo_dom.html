@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><title>todo DOM</title></head>
+    <body>
+        <br><br><input id= "title" type=text placeholder="title"><br><br>
+        
+        <input id="description" type=text placeholder="description"><br><br>
+        
+        <button onclick="addtodo()" id="button1">ADD Todo</button><br><br>
+        
+        <button onclick="deletetodo()" id="button2">DELETETODO</button>
+        
+        <div id="todo"></div>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                height: 100vh;
+                margin: 0;
+            }
+        
+            #title, #description, #button1, #button2 {
+                color: black;
+                font-size: 20px;
+                padding: 10px;
+                text-align: center;
+                width: 30%; 
+                margin: 5px 0;
+            }
+        </style>
+        <br><br>
+        
+    </body>
+<script>
+    let globalid=1
+    function addtodo(){
+        const title=document.getElementById("title").value;
+        const desc=document.getElementById("description").value;
+        const parent=document.getElementById("todo");
+        parent.appendChild(createchild(title,desc,globalid++));
+        clear=()=>{
+            title.reset();
+            description.reset();
+        }
+
+    }
+    function createchild(title,desc,globalid){
+        const child=document.createElement("div");
+        child.id="todo-"+globalid
+        const fchild=document.createElement("div");
+        fchild.innerHTML=title;
+        child.appendChild(fchild);
+        const schild=document.createElement("div");
+        schild.innerHTML=desc;
+        child.appendChild(schild);
+        const xchild=document.createElement("div");
+        xchild.innerHTML="ID-"+globalid;
+        child.appendChild(xchild);
+        const tchild=document.createElement("button");
+        tchild.innerHTML="MARK AS DONE";
+       tchild.onclick=()=>{
+        tchild.innerHTML="DONE!";
+       }
+        child.appendChild(tchild);
+        return child;
+    }
+    function deletetodo(){
+        const x=document.createElement("div")
+        const input=document.createElement("input")
+        input.id="globalid";
+        input.type="number";
+        input.placeholder="id";
+        x.appendChild(input);
+        const button=document.createElement("button");
+        button.innerHTML="DELETE!"
+        x.appendChild(button);
+
+       document.body.appendChild(x);
+        button.onclick=()=>{
+        const globalid = document.getElementById("globalid").value;
+        const element = document.getElementById("todo-"+globalid);
+        if(element){
+        element.remove();
+        }
+    else{
+        alert("todo not found laude")
+    }
+input.style.display="none";
+button.style.display="none";
+}
+    }
+
+</script>
+</html>
